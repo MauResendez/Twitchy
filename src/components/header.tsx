@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "@app/components/ui/avatar";
-import ThemeToggle from "@app/components/toggle";
+import User from "@app/components/user";
 
 const Header = () => {
   return (
@@ -20,11 +19,7 @@ const Header = () => {
         </Link>
       </nav>
       <div className="ml-6">
-        {/* <Avatar>
-          <AvatarImage alt="User Avatar" src="/placeholder-avatar.jpg" />
-          <AvatarFallback>U</AvatarFallback>
-        </Avatar> */}
-        <ThemeToggle />
+        <User />
       </div>
     </header>
   );
