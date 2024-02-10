@@ -20,7 +20,7 @@ export type Badge = {
   pk: string;
   sk: string;
   name: string;
-  versions: object;
+  versions: object[];
 }
 
 export type Emote = {
@@ -58,7 +58,7 @@ export type Stream = {
   is_mature: boolean
   language: string,
   started_at: string,
-  tag_ids: [],
+  tag_ids: string[],
   tags: string[],
   thumbnail_url: string,
   title: string,
