@@ -1,6 +1,10 @@
+import Metatags from "@app/components/metatags";
+import Image from "next/image";
+
 const Home = () => {
   return (
     <div className="flex flex-col min-h-screen">
+      <Metatags title="Twitchy" description="Discover the best streams, analyze statistics, and compare your favorite streamers" />
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container px-4 md:px-6">
@@ -19,7 +23,7 @@ const Home = () => {
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="grid items-center gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_550px]">
-              <img
+              <Image
                 alt="Find Streams"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
                 height="310"
@@ -41,7 +45,7 @@ const Home = () => {
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="grid items-center gap-6 lg:grid-cols-[500px_1fr] lg:gap-12 xl:grid-cols-[550px_1fr]">
-              <img
+              <Image
                 alt="Statistics"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
                 height="310"
@@ -62,7 +66,7 @@ const Home = () => {
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="grid items-center gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_550px]">
-              <img
+              <Image
                 alt="Compare Streamers"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
                 height="310"

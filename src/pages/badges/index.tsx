@@ -2,6 +2,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@app/components/ui/ca
 import { Badge } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 
 const Badges = () => {
@@ -34,10 +35,10 @@ const Badges = () => {
     <main className="flex-1">
       <div className="container mx-auto grid gap-4 md:grid-cols-4 xl:grid-cols-6 p-4">
         {data.map((badge: Badge) => (
-          <Link href={"/badges/" + badge.sk}>
+          <Link href={"/badges/" + badge.sk} key={badge.sk}>
             <Card key={badge.sk}>
               <CardContent className="p-4 aspect-video">
-                <img
+                <Image
                   alt={badge.name}
                   className="object-cover w-full h-full"
                   height={225}

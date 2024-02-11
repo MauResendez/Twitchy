@@ -1,7 +1,9 @@
+import Metatags from "@app/components/metatags";
 import { Card, CardContent, CardFooter, CardHeader } from "@app/components/ui/card";
 import { Channel } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 
 const Channels = () => {
@@ -14,9 +16,9 @@ const Channels = () => {
         var height = 225;
   
         // Iterate over each object in the array
-        response.data.channels.forEach(function(channel: any) {
+        response.data.channels.forEach(function(channel: Channel) {
           // Replace {width} and {height} with actual values in thumbnail_url
-          channel.thumbnail_url = channel.thumbnail_url.replace(/{width}/g, width).replace(/{height}/g, height);
+          channel.thumbnail_url = channel.thumbnail_url.replace(/{width}/g, width as any).replace(/{height}/g, height as any);
         });
   
         return response.data.channels;
@@ -29,12 +31,13 @@ const Channels = () => {
 
   return (
     <main className="flex-1">
+      <Metatags title="Twitchy - Channels" description="Find details and statistics about any Twitch channel" />
       <div className="container mx-auto grid gap-4 md:grid-cols-2 xl:grid-cols-4 p-4">
         {data.map((channel: Channel) => (
-          <Link href={"/channels/" + channel.user_id}>
+          <Link href={"/channels/" + channel.user_login} key={channel.id}>
             <Card key={channel.id}>
               <CardContent className="p-0 aspect-video">
-                <img
+                <Image
                   alt="Stream"
                   className="object-cover w-full h-full"
                   height={225}
@@ -51,16 +54,14 @@ const Channels = () => {
                   <div className="grid text-sm">
                     <h3 className="font-medium">{channel.user_name}</h3>
                     <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{channel.title}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Playing: {channel.game_name}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Viewers: {channel.viewer_count}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Playing: {channel.game_name}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Viewers: {channel.viewer_count}</p>
                   </div>
                 </div>
               </CardHeader>
             </Card>
           </Link>
-          
         ))}
-        
       </div>
     </main>
   );

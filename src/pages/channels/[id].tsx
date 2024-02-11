@@ -2,6 +2,7 @@ import { Button } from "@app/components/ui/button";
 import { Card, CardContent, CardHeader } from "@app/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -36,7 +37,7 @@ const Channel = () => {
           </Button>
         </div>
         <div className="order-2 md:order-1 flex items-center">
-          <img
+          <Image
             alt="Avatar"
             className="rounded-full border-4 border-white"
             height="96"

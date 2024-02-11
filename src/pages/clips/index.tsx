@@ -2,6 +2,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@app/components/ui/ca
 import { Clip } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 
 const Clips = () => {
@@ -36,10 +37,10 @@ const Clips = () => {
     <main className="flex-1">
       <div className="container mx-auto grid gap-4 md:grid-cols-2 xl:grid-cols-4 p-4">
         {data.map((clip: Clip) => (
-          <Link href={"/clips/" + clip.sk}>
+          <Link href={"/clips/" + clip.sk} key={clip.sk}>
             <Card key={clip.sk}>
               <CardContent className="p-0 aspect-video">
-                <img
+                <Image
                   alt="Stream"
                   className="object-cover w-full h-full"
                   height={225}
