@@ -10,8 +10,10 @@ import {
   QueryClient,
   QueryClientProvider,
   useQuery,
-} from '@tanstack/react-query'
-
+} from '@tanstack/react-query';
+import { Provider } from "react-redux";
+import { persistor, store } from "@app/store";
+import { PersistGate } from "redux-persist/integration/react";
 const inter = Inter({ subsets: ["latin"] });
 
 const queryClient = new QueryClient()
@@ -19,21 +21,25 @@ const queryClient = new QueryClient()
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <SessionProvider session={session}>
-          <main className={`flex min-h-screen flex-col items-center justify-between ${inter.className} bg-white dark:bg-slate-900`}>
-            <Header />
-            <Component {...pageProps} />
-            <Footer />
-          </main>
-          <Toaster />
-        </SessionProvider>
-      </ThemeProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>       
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SessionProvider session={session}>
+              <main className={`flex min-h-screen flex-col items-center justify-between ${inter.className} bg-white dark:bg-slate-900`}>
+                <Header />
+                <Component {...pageProps} />
+                <Footer />
+              </main>
+              <Toaster />
+            </SessionProvider>
+          </ThemeProvider>
+        </PersistGate>
+      </Provider>
     </QueryClientProvider>
   );
 }
