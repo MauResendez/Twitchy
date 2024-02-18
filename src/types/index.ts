@@ -20,14 +20,14 @@ export type Badge = {
   pk: string;
   sk: string;
   name: string;
-  versions: object[];
+  versions: any;
 }
 
 export type Emote = {
   pk: string,
   sk: string,
   format: string[],
-  images: object,
+  images: any,
   name: string,
   scale: string[]
   themes: string[],

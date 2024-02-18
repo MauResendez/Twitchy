@@ -9,6 +9,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'clips-media-assets2.twitch.tv',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

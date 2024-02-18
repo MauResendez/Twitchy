@@ -25,7 +25,7 @@ const Badges = () => {
   
         return response.data.badges;
       }),
-  })
+  });
 
   if (isPending) return 'Loading...'
 
