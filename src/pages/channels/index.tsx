@@ -1,11 +1,9 @@
 import Metatags from "@app/components/metatags";
-import { Card, CardContent, CardFooter, CardHeader } from "@app/components/ui/card";
+import ChannelResults from "@app/components/channel-results";
 import { Icons } from "@app/components/ui/spinner";
 import { Channel } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Image from "next/image";
-import Link from "next/link";
 
 const Channels = () => {
   const { isPending, error, data } = useQuery({
@@ -24,7 +22,7 @@ const Channels = () => {
   
         return response.data.channels;
       }),
-  })
+  });
 
   if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
 
@@ -33,7 +31,7 @@ const Channels = () => {
   return (
     <main className="flex-1">
       <Metatags title="Twitchy - Channels" description="Find details and statistics about any Twitch channel" />
-      <div className="container mx-auto grid gap-4 md:grid-cols-2 xl:grid-cols-4 p-4">
+      {/* <div className="container mx-auto grid gap-4 md:grid-cols-2 xl:grid-cols-4 p-4">
         {data.map((channel: Channel) => (
           <Link href={"/channels/" + channel.user_login} key={channel.id}>
             <Card key={channel.id}>
@@ -63,7 +61,8 @@ const Channels = () => {
             </Card>
           </Link>
         ))}
-      </div>
+      </div> */}
+      <ChannelResults data={data} />
     </main>
   );
 }
