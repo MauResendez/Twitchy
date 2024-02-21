@@ -10,6 +10,9 @@ const config = {
 	],
   prefix: "",
   theme: {
+    colors: {
+      'purple': '#9146FF'
+    },
     container: {
       center: true,
       padding: "2rem",

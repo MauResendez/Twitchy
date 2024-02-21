@@ -1,3 +1,4 @@
+import { Icons } from '@app/components/ui/spinner';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
@@ -16,7 +17,7 @@ const Stream = () => {
     refetchOnWindowFocus: false
   });
 
-  if (isPending) return 'Loading...'
+  if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
 
   if (error) return 'An error has occurred: ' + error.message
 

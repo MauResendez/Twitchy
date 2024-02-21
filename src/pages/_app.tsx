@@ -1,5 +1,4 @@
 import Footer from "@app/components/footer";
-import Header from "@app/components/header";
 import { ThemeProvider } from "@app/components/theme";
 import { Toaster } from "@app/components/ui/toaster";
 import "@app/styles/globals.css";
@@ -14,6 +13,7 @@ import {
 import { Provider } from "react-redux";
 import { persistor, store } from "@app/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { Header } from "@app/components/header";
 const inter = Inter({ subsets: ["latin"] });
 
 const queryClient = new QueryClient()
@@ -30,7 +30,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
             disableTransitionOnChange
           >
             <SessionProvider session={session}>
-              <main className={`flex min-h-screen flex-col items-center justify-between ${inter.className} bg-white dark:bg-slate-900`}>
+              <main className={`flex min-h-screen flex-col items-center justify-between ${inter.className} bg-white dark:bg-purple`}>
                 <Header />
                 <Component {...pageProps} />
                 <Footer />

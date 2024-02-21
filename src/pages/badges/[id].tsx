@@ -1,5 +1,6 @@
 import { Button } from "@app/components/ui/button";
 import { Card, CardContent, CardHeader } from "@app/components/ui/card";
+import { Icons } from "@app/components/ui/spinner";
 import { Badge as b } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -20,7 +21,7 @@ const Badge = () => {
     enabled: router.isReady
   })
 
-  if (isPending) return 'Loading...'
+  if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
 
   if (error) return 'An error has occurred: ' + error.message
 

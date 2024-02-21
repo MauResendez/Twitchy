@@ -1,4 +1,5 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@app/components/ui/card";
+import { Icons } from "@app/components/ui/spinner";
 import { Clip } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -29,7 +30,7 @@ const Clips = () => {
       }),
   })
 
-  if (isPending) return 'Loading...'
+  if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
 
   if (error) return 'An error has occurred: ' + error.message
 

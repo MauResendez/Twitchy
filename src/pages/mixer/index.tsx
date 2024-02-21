@@ -20,10 +20,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@app/components/ui/select"
-import { toast } from "@app/components/ui/use-toast"
+import { toast } from "@app/types/use-toast"
 import { Input } from "@app/components/ui/input";
 import { useRouter } from "next/router";
-import { MultiSelect } from "@app/components/ui/multi-select";
 import axios from "axios";
 import Metatags from "@app/components/metatags";
 import { useDispatch } from "react-redux";
