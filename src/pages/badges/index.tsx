@@ -1,3 +1,4 @@
+import Metatags from "@app/components/metatags";
 import { Card, CardContent, CardHeader } from "@app/components/ui/card";
 import { Icons } from "@app/components/ui/spinner";
 import { Badge } from "@app/types";
@@ -34,6 +35,7 @@ const Badges = () => {
 
   return (
     <div className="flex flex-1 flex-col min-h-screen">
+      <Metatags title="Twitchy - Badges" description="View all global badges from Twitch" />
       <div className="container mx-auto grid gap-4 md:grid-cols-4 xl:grid-cols-6 p-4">
         {data.map((badge: Badge) => (
           <Link href={"/badges/" + badge.sk} key={badge.sk}>
