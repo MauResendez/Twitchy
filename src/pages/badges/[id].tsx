@@ -5,7 +5,6 @@ import { Badge as b } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const Badge = () => {
   const router = useRouter();
