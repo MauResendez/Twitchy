@@ -1,5 +1,6 @@
 import Footer from "@app/components/footer";
 import Header from "@app/components/header";
+import Mobile from "@app/components/mobile";
 import { ThemeProvider } from "@app/components/theme";
 import { Toaster } from "@app/components/ui/toaster";
 import { persistor, store } from "@app/store";
@@ -29,8 +30,9 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
             disableTransitionOnChange
           >
             <SessionProvider session={session}>
-              <main className={`flex min-h-screen flex-col items-center justify-between ${inter.className} bg-white dark:bg-purple`}>
+              <main className={`flex min-h-screen flex-col items-center justify-between ${inter.className} bg-white dark:bg-gray`}>
                 <Header />
+                <Mobile />
                 <Component {...pageProps} />
                 <Footer />
               </main>
