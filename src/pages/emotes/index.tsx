@@ -1,4 +1,4 @@
-import { Card, CardContent, CardFooter, CardHeader } from "@app/components/ui/card";
+import { Card, CardContent, CardHeader } from "@app/components/ui/card";
 import { Icons } from "@app/components/ui/spinner";
 import { Emote } from "@app/types";
 import { useQuery } from "@tanstack/react-query";

@@ -1,19 +1,18 @@
 import Footer from "@app/components/footer";
+import Header from "@app/components/header";
 import { ThemeProvider } from "@app/components/theme";
 import { Toaster } from "@app/components/ui/toaster";
+import { persistor, store } from "@app/store";
 import "@app/styles/globals.css";
+import {
+  QueryClient,
+  QueryClientProvider
+} from '@tanstack/react-query';
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from '@tanstack/react-query';
 import { Provider } from "react-redux";
-import { persistor, store } from "@app/store";
 import { PersistGate } from "redux-persist/integration/react";
-import { Header } from "@app/components/header";
 const inter = Inter({ subsets: ["latin"] });
 
 const queryClient = new QueryClient()

@@ -31,6 +31,10 @@ export type Emote = {
   name: string,
   scale: string[]
   themes: string[],
+  rank: string,
+  followers_total: number,
+  avg_viewers: number,
+  created_at: string,
 }
 
 export type Clip = {

@@ -1,12 +1,12 @@
-import Metatags from "@app/components/metatags";
 import ChannelResults from "@app/components/channel-results";
+import Metatags from "@app/components/metatags";
 import { Icons } from "@app/components/ui/spinner";
 import { Channel } from "@app/types";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { useForm } from "react-hook-form";
+import { z } from "zod";
  
 import {
   Form,
@@ -15,9 +15,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@app/components/ui/form"
-import { Input } from "@app/components/ui/input"
-import { toast } from "@app/types/use-toast"
+} from "@app/components/ui/form";
+import { Input } from "@app/components/ui/input";
+import { toast } from "@app/types/use-toast";
 import { useRouter } from "next/router";
 
 const Channels = () => {

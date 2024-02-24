@@ -1,35 +1,32 @@
-import Link from "next/link"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from "@app/components/ui/button"
+import Metatags from "@app/components/metatags";
+import { Button } from "@app/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage,
-} from "@app/components/ui/form"
+  FormMessage
+} from "@app/components/ui/form";
+import { Input } from "@app/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@app/components/ui/select"
-import { toast } from "@app/types/use-toast"
-import { Input } from "@app/components/ui/input";
-import { useRouter } from "next/router";
-import axios from "axios";
-import Metatags from "@app/components/metatags";
-import { useDispatch } from "react-redux";
-import { saveStreams } from "@app/slices/streams";
-import { useQuery } from "@tanstack/react-query";
+} from "@app/components/ui/select";
 import { Icons } from "@app/components/ui/spinner";
+import { saveStreams } from "@app/slices/streams";
+import { toast } from "@app/types/use-toast";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const GameSchema = z.object({
   id: z.string(),

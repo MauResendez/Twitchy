@@ -1,6 +1,5 @@
 import ClipResults from "@app/components/clip-results";
 import Metatags from "@app/components/metatags";
-import { Card, CardContent, CardFooter, CardHeader } from "@app/components/ui/card";
 import { Icons } from "@app/components/ui/spinner";
 import { Clip } from "@app/types";
 import { useQuery } from "@tanstack/react-query";

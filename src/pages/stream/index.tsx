@@ -1,7 +1,5 @@
 import { Icons } from '@app/components/ui/spinner';
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux';
 import { TwitchPlayer } from 'react-twitch-embed';
 
 const Stream = () => {
