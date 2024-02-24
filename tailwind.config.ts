@@ -11,7 +11,7 @@ const config = {
   prefix: "",
   theme: {
     colors: {
-      'purple': '#9146FF'
+      twitch: "#0000FE"
     },
     container: {
       center: true,

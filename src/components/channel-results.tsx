@@ -1,10 +1,9 @@
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
-import { Card, CardContent, CardHeader } from './ui/card';
 import { Channel } from '@app/types';
 import Image from 'next/image';
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from './ui/pagination';
-import { Input } from './ui/input';
+import Link from 'next/link';
+import { useState } from 'react';
+import { Card, CardContent, CardHeader } from './ui/card';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from './ui/pagination';
 
 const ChannelResults = (props: any) => {
   const { data } = props;
@@ -33,10 +32,7 @@ const ChannelResults = (props: any) => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div>
-      <div className="p-4">
-        <Input type="text" placeholder="Search for a Twitch channel" />
-      </div>
+    <>
       <div className="container mx-auto grid gap-4 md:grid-cols-2 xl:grid-cols-4 p-4">
         {currentItems.map((channel: Channel) => (
           <Link href={"/channels/" + channel.user_login} key={channel.id}>
@@ -78,7 +74,7 @@ const ChannelResults = (props: any) => {
           handlePreviousPage={handlePreviousPage}
         />
       </div>
-    </div>
+    </>
   );
 }
 
