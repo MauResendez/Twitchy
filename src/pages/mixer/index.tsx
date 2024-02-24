@@ -27,6 +27,9 @@ import axios from "axios";
 import Metatags from "@app/components/metatags";
 import { useDispatch } from "react-redux";
 import { saveStreams } from "@app/slices/streams";
+import { useQuery } from "@tanstack/react-query";
+import { Icons } from "@app/components/ui/spinner";
+import { useState } from "react";
 
 const GameSchema = z.object({
   id: z.string(),
@@ -48,13 +51,25 @@ const FormSchema = z.object({
 const Mixer = () => {
   const { push } = useRouter();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
+  const { isPending, error, data } = useQuery({
+    queryKey: ['games'],
+    queryFn: async () => {
+      const response = await axios.get('https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getGames');
+
+      console.log(response.data.games);
+
+      return response.data.games;
+    }
+  });
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       game: "",
       language: "",
-      viewers: 100
+      viewers: 10
     }
   })
 
@@ -66,7 +81,9 @@ const Mixer = () => {
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
-    })
+    });
+
+    setLoading(true);
 
     const response = await axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getStreams?game=${data["game"]}&language=${data["language"]}&viewers=${data["viewers"]}`);
 
@@ -75,6 +92,10 @@ const Mixer = () => {
     sessionStorage.setItem("streams", JSON.stringify(streams));
     push("/stream");
   }
+
+  if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
+
+  if (error) return 'An error has occurred: ' + error.message
 
   return (
     <div className="flex flex-col p-4 flex-1 items-center justify-center">
@@ -103,52 +124,11 @@ const Mixer = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="lol">League of Legends</SelectItem>
-                        <SelectItem value="33214">Fortnite</SelectItem>
-                        <SelectItem value="csgo">CS:GO</SelectItem>
-                        <SelectItem value="dota2">Dota 2</SelectItem>
-                        <SelectItem value="minecraft">Minecraft</SelectItem>
-                        <SelectItem value="overwatch">Overwatch</SelectItem>
-                        <SelectItem value="fifa">FIFA</SelectItem>
-                        <SelectItem value="pubg">PUBG</SelectItem>
-                        <SelectItem value="hearthstone">Hearthstone</SelectItem>
-                        <SelectItem value="rocketleague">Rocket League</SelectItem>
+                        {data.map((game: any) => (
+                          <SelectItem value={game.id}>{game.name}</SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
-                    {/* <MultiSelect
-                      selected={field.value}
-                      options={[
-                        {
-                          value: "next.js",
-                          label: "Next.js",
-                        },
-                        {
-                          value: "sveltekit",
-                          label: "SvelteKit",
-                        },
-                        {
-                          value: "nuxt.js",
-                          label: "Nuxt.js",
-                        },
-                        {
-                          value: "remix",
-                          label: "Remix",
-                        },
-                        {
-                          value: "astro",
-                          label: "Astro",
-                        },
-                        {
-                          value: "wordpress",
-                          label: "WordPress",
-                        },
-                        {
-                          value: "express.js",
-                          label: "Express.js",
-                        }
-                      ]}
-                      {...field}
-                    /> */}
                     <FormMessage />
                   </FormItem>
                 )}
@@ -198,8 +178,8 @@ const Mixer = () => {
                 )}
               />
             </div>
-            <Button className="w-full" type="submit">
-              Start Searching
+            <Button className="w-full" type="submit" disabled={loading}>
+              {loading ? "Loading..." : "Start Searching"}
             </Button>
           </form>
         </Form>
