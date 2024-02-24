@@ -1,6 +1,6 @@
+import Auth from "@app/components/auth";
+import Drawer from "@app/components/drawer";
 import Link from "next/link";
-import Auth from "./auth";
-import { Drawer } from "./drawer";
 
 const Mobile = () => {
   return (

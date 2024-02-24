@@ -95,7 +95,7 @@ const Mixer = () => {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <div className="flex flex-col p-4 flex-1 items-center justify-center">
+    <div className="flex flex-1 flex-col items-center justify-center">
       <Metatags title="Twitchy" description="Discover the best streams, analyze statistics, and compare your favorite streamers" />
       <div className="flex items-center justify-center p-4">
         <div className="space-y-2 text-center">

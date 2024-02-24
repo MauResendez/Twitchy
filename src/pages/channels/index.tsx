@@ -71,7 +71,7 @@ const Channels = () => {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <main className="flex-1">
+    <div className="flex flex-1 flex-col min-h-screen">
       <Metatags title="Twitchy - Channels" description="Find details and statistics about any Twitch channel" />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="p-4">
@@ -91,7 +91,7 @@ const Channels = () => {
         </form>
       </Form>
       <ChannelResults data={data} />
-    </main>
+    </div>
   );
 }
 

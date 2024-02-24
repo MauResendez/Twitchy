@@ -9,7 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@app/components/ui/sheet";
 import { cn } from "@app/utils";
 import { ScrollArea } from "./ui/scroll-area";
 
-export function Drawer() {
+const Drawer = () => {
   const [open, setOpen] = React.useState(false);
   const pathname = usePathname();
 
@@ -58,23 +58,10 @@ export function Drawer() {
           className="flex items-center"
           onOpenChange={setOpen}
         >
-          {/* <Icons.logo className="mr-2 h-4 w-4" /> */}
           <span className="text-2xl font-bold">Twitchy</span>
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10">
           <div className="flex flex-col space-y-3">
-            {/* {docsConfig.mainNav?.map(
-              (item: any) =>
-                item.href && (
-                  <MobileLink
-                    key={item.href}
-                    href={item.href}
-                    onOpenChange={setOpen}
-                  >
-                    {item.title}
-                  </MobileLink>
-                )
-            )} */}
             <MobileLink 
               className={cn(
                 "transition-colors hover:text-foreground/80",
@@ -170,3 +157,5 @@ function MobileLink({
     </Link>
   )
 }
+
+export default Drawer;

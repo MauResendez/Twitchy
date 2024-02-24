@@ -33,7 +33,7 @@ const Emotes = () => {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <main className="flex-1">
+    <div className="flex flex-1 flex-col min-h-screen">
       <div className="container mx-auto grid gap-4 md:grid-cols-4 xl:grid-cols-6 p-4">
         {data.map((emote: Emote) => (
           <Link href={"/emotes/" + emote.sk} key={emote.sk}>
@@ -62,7 +62,7 @@ const Emotes = () => {
           </Link>
         ))}
       </div>
-    </main>
+    </div>
   );
 }
 

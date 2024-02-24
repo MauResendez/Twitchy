@@ -1,4 +1,5 @@
 import { Clip } from '@app/types';
+import { formatDate } from '@app/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -55,7 +56,7 @@ const ClipResults = (props: any) => {
                   <div className="grid text-sm">
                     <h3 className="font-medium truncate">{clip.title}</h3>
                     <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{clip.broadcaster_name}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Playing: {clip.created_at}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Created at: {formatDate(clip.created_at)}</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Viewers: {clip.view_count}</p>
                   </div>
                 </div>

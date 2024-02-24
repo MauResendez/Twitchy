@@ -1,6 +1,7 @@
 import { Button } from "@app/components/ui/button";
 import { Card, CardContent, CardHeader } from "@app/components/ui/card";
 import { Icons } from "@app/components/ui/spinner";
+import { formatDate } from "@app/utils";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
@@ -80,7 +81,7 @@ const Channel = () => {
             <div className="flex items-center gap-2">
               <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Created At</div>
-              <div className="ml-auto">{data.channel.created_at}</div>
+              <div className="ml-auto">{formatDate(data.channel.created_at)}</div>
             </div>
           </div>
         </div>

@@ -34,10 +34,10 @@ const Clips = () => {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <main className="flex-1">
+    <div className="flex flex-1 flex-col min-h-screen">
       <Metatags title="Twitchy - Clips" description="Find details and statistics about any Twitch channel" />
       <ClipResults data={data} />
-    </main>
+    </div>
   );
 }
 
