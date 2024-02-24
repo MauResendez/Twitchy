@@ -27,7 +27,7 @@ const Badge = () => {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center">
+    <div className="container">
       <Metatags title={`Twitchy - ${data.name}'s Badge`} description={`Badge details for ${data.name}`} />
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader className="flex flex-col md:flex-row items-start md:items-center gap-4 py-6 px-6 md:gap-8 md:py-8 md:px-8">
@@ -54,26 +54,16 @@ const Badge = () => {
         <CardContent className="grid gap-4 p-6 md:gap-8 md:p-8">
           <div className="grid gap-2">
             <h2 className="font-semibold">Details</h2>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <div className="flex items-center gap-2">
                 <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Twitch ID</div>
-                <div className="ml-auto">{data.name}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Twitch Name</div>
-                <div className="ml-auto">{data.name}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Channel Type</div>
-                <div className="ml-auto">{data.pk}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Created At</div>
+                <div className="font-semibold">Emote ID</div>
                 <div className="ml-auto">{data.sk}</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <div className="font-semibold">Emote Name</div>
+                <div className="ml-auto">{data.name}</div>
               </div>
             </div>
           </div>
