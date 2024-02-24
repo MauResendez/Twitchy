@@ -4,6 +4,7 @@ import { Icons } from "@app/components/ui/spinner";
 import { formatDate } from "@app/utils";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Calendar, Clock3Icon, TrophyIcon, TvIcon, TwitchIcon, UserIcon, UserRoundPlusIcon, UserSquareIcon, UsersRoundIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
@@ -13,10 +14,11 @@ const Channel = () => {
 
   const { isPending, error, data } = useQuery({
     queryKey: [id],
-    queryFn: () =>
-      axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getChannel?user=${id}`).then((response) => {
-        return response.data;
-      }),
+    queryFn: async () => {
+      const response = await axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getChannel?user=${id}`);
+
+      return response.data;
+    },
     enabled: router.isReady
   })
 
@@ -30,14 +32,12 @@ const Channel = () => {
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader className="flex flex-col md:flex-row items-start md:items-center gap-4 py-6 px-6 md:gap-8 md:py-8 md:px-8">
         <div className="order-1 md:order-2 flex gap-2 md:ml-auto">
-          <Button className="rounded-full w-8 h-8" size="icon" variant="outline">
-            <HeartIcon className="h-4 w-4" />
-            <span className="sr-only">Follow</span>
-          </Button>
-          <Button className="rounded-full w-8 h-8" size="icon" variant="outline">
-            <BellIcon className="h-4 w-4" />
-            <span className="sr-only">Toggle notifications</span>
-          </Button>
+          <a href={`https://www.twitch.tv/${data.channel.login}`} target="_blank">
+            <Button className="rounded-full w-8 h-8" size="icon" variant="outline">
+              <TwitchIcon className="h-4 w-4" />
+              <span className="sr-only">Follow</span>
+            </Button>
+          </a>
         </div>
         <div className="order-2 md:order-1 flex items-center">
           <Image
@@ -64,22 +64,22 @@ const Channel = () => {
           <h2 className="font-semibold">Details</h2>
           <div className="grid grid-cols-2 gap-2">
             <div className="flex items-center gap-2">
-              <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <UserIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Twitch ID</div>
               <div className="ml-auto">{data.channel.id}</div>
             </div>
             <div className="flex items-center gap-2">
-              <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <UserIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Twitch Name</div>
               <div className="ml-auto">{data.channel.login}</div>
             </div>
             <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <TvIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Channel Type</div>
-              <div className="ml-auto">{data.channel.broadcaster_type}</div>
+              <div className="ml-auto capitalize">{data.channel.broadcaster_type}</div>
             </div>
             <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <Calendar className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Created At</div>
               <div className="ml-auto">{formatDate(data.channel.created_at)}</div>
             </div>
@@ -89,34 +89,34 @@ const Channel = () => {
           <h2 className="font-semibold">Stats</h2>
           <div className="grid grid-cols-2 gap-2">
             <div className="flex items-center gap-2">
-              <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <TrophyIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Monthly Rank</div>
               <div className="ml-auto">#{data.channel.rank}</div>
             </div>
             <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Total Followers</div>
-              <div className="ml-auto">{data.channel.followers_total}</div>
+              <Clock3Icon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <div className="font-semibold">Monthly Hours Streamed</div>
+              <div className="ml-auto">{(data.channel.minutes_streamed / 60).toFixed(2)}</div>
             </div>
             <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Average Viewers</div>
+              <UserSquareIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <div className="font-semibold">Monthly Average Viewers</div>
               <div className="ml-auto">{data.channel.avg_viewers}</div>
             </div>
             <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.channel.created_at}</div>
+              <UsersRoundIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <div className="font-semibold">Monthly Max Viewers</div>
+              <div className="ml-auto">{data.channel.max_viewers}</div>
             </div>
             <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.channel.created_at}</div>
+              <UserRoundPlusIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <div className="font-semibold">Total Followers Gained</div>
+              <div className="ml-auto">{data.channel.followers_total}</div>
             </div>
             <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.channel.created_at}</div>
+              <UserRoundPlusIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              <div className="font-semibold">Monthly Followers Gained</div>
+              <div className="ml-auto">{data.channel.followers}</div>
             </div>
           </div>
         </div>
