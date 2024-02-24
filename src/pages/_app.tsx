@@ -2,7 +2,6 @@ import Footer from "@app/components/footer";
 import Header from "@app/components/header";
 import Mobile from "@app/components/mobile";
 import { ThemeProvider } from "@app/components/theme";
-import { Toaster } from "@app/components/ui/toaster";
 import { persistor, store } from "@app/store";
 import "@app/styles/globals.css";
 import {
@@ -36,7 +35,6 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
                 <Component {...pageProps} />
                 <Footer />
               </main>
-              <Toaster />
             </SessionProvider>
           </ThemeProvider>
         </PersistGate>

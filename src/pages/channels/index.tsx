@@ -17,7 +17,6 @@ import {
   FormMessage,
 } from "@app/components/ui/form";
 import { Input } from "@app/components/ui/input";
-import { toast } from "@app/types/use-toast";
 import { useRouter } from "next/router";
 
 const Channels = () => {
@@ -54,16 +53,7 @@ const Channels = () => {
   })
  
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
-
-    push(`/channels/${data.username}`)
+    push(`/channels/${data.username}`);
   }
 
   if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />

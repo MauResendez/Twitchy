@@ -21,17 +21,11 @@ import {
 } from "@app/components/ui/select";
 import { Icons } from "@app/components/ui/spinner";
 import { saveStreams } from "@app/slices/streams";
-import { toast } from "@app/types/use-toast";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-
-const GameSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-})
 
 const FormSchema = z.object({
   game: z.string({
@@ -71,15 +65,6 @@ const Mixer = () => {
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-
     setLoading(true);
 
     const response = await axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getStreams?game=${data["game"]}&language=${data["language"]}&viewers=${data["viewers"]}`);
