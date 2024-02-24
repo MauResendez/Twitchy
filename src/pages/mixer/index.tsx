@@ -81,7 +81,7 @@ const Mixer = () => {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
-      <Metatags title="Twitchy" description="Discover the best streams, analyze statistics, and compare your favorite streamers" />
+      <Metatags title="Twitchy - Mixer" description="Find new streams based on you're looking for" />
       <div className="flex items-center justify-center p-4">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl">Stream Mixer</h1>

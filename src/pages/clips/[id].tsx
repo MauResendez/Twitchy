@@ -1,3 +1,4 @@
+import Metatags from "@app/components/metatags";
 import { Icons } from "@app/components/ui/spinner";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -17,7 +18,10 @@ const Clip = () => {
   if (loading) return <Icons.spinner className="h-20 w-20 animate-spin" />
 
   return (
-    <TwitchClip clip={id as string} autoplay />
+    <div className="flex flex-1 flex-col items-center justify-center">
+      <Metatags title={`Twitchy - ${id}`} description={`View clip ${id} from Twitch`} />
+      <TwitchClip clip={id as string} autoplay />
+    </div>
   );
 }
 

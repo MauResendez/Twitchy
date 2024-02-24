@@ -23,37 +23,38 @@ const Channels = () => {
   const { push } = useRouter();
   const { isPending, error, data } = useQuery({
     queryKey: ['channels'],
-    queryFn: () =>
-      axios.get('https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getChannels').then((response) => {
-        // Define width and height
-        var width = 400;
-        var height = 225;
-  
-        // Iterate over each object in the array
-        response.data.channels.forEach(function(channel: Channel) {
-          // Replace {width} and {height} with actual values in thumbnail_url
-          channel.thumbnail_url = channel.thumbnail_url.replace(/{width}/g, width as any).replace(/{height}/g, height as any);
-        });
-  
-        return response.data.channels;
-      }),
+    queryFn: async () => {
+      const response = await axios.get('https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getChannels');
+
+      // Define width and height
+      var width = 400;
+      var height = 225;
+
+      // Iterate over each object in the array
+      response.data.channels.forEach(function(channel: Channel) {
+        // Replace {width} and {height} with actual values in thumbnail_url
+        channel.thumbnail_url = channel.thumbnail_url.replace(/{width}/g, width as any).replace(/{height}/g, height as any);
+      });
+
+      return response.data.channels;
+    },
   });
 
   const FormSchema = z.object({
-    username: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
+    channel: z.string().min(2, {
+      message: "Channel must be at least 2 characters.",
     }),
   })
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: "",
+      channel: "",
     },
   })
  
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    push(`/channels/${data.username}`);
+    push(`/channels/${data.channel}`);
   }
 
   if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
@@ -67,7 +68,7 @@ const Channels = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="p-4">
           <FormField
             control={form.control}
-            name="username"
+            name="channel"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Search</FormLabel>

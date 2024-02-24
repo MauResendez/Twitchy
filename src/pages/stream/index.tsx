@@ -1,3 +1,4 @@
+import Metatags from '@app/components/metatags';
 import { Button } from '@app/components/ui/button';
 import { Icons } from '@app/components/ui/spinner';
 import { useQuery } from '@tanstack/react-query';
@@ -23,6 +24,7 @@ const Stream = () => {
   
   return (
     <div className="flex flex-1 flex-col items-center justify-center space-y-4">
+      <Metatags title="Twitchy - Stream" description="View a random stream based on the parameters that you've set" />
       <TwitchEmbed channel={data.user_login} autoplay muted={false} />
       <div className="flex items-center space-x-4">
         <Button size="sm" variant="default" onClick={() => refetch()}>

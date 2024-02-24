@@ -1,9 +1,10 @@
-import { Button } from "@app/components/ui/button";
+import Metatags from "@app/components/metatags";
 import { Card, CardContent, CardHeader } from "@app/components/ui/card";
 import { Icons } from "@app/components/ui/spinner";
 import { Emote as e } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 const Emote = () => {
@@ -12,11 +13,12 @@ const Emote = () => {
 
   const { isPending, error, data } = useQuery({
     queryKey: [id],
-    queryFn: () =>
-      axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getEmote?emote=${id}`).then((response) => {
-        const emote: e = response.data.emote;
-        return emote;
-      }),
+    queryFn: async () => {
+      const response = await axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getEmote?emote=${id}`);
+
+      const emote: e = response.data.emote;
+      return emote;
+    },
     enabled: router.isReady
   })
 
@@ -25,101 +27,60 @@ const Emote = () => {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader className="flex flex-col md:flex-row items-start md:items-center gap-4 py-6 px-6 md:gap-8 md:py-8 md:px-8">
-        <div className="order-1 md:order-2 flex gap-2 md:ml-auto">
-          <Button className="rounded-full w-8 h-8" size="icon" variant="outline">
-            <HeartIcon className="h-4 w-4" />
-            <span className="sr-only">Follow</span>
-          </Button>
-          <Button className="rounded-full w-8 h-8" size="icon" variant="outline">
-            <BellIcon className="h-4 w-4" />
-            <span className="sr-only">Toggle notifications</span>
-          </Button>
-        </div>
-        <div className="order-2 md:order-1 flex items-center">
-          {/* <img
-            alt="Avatar"
-            className="rounded-full border-4 border-white"
-            height="96"
-            src={data.images.profile_image_url}
-            style={{
-              aspectRatio: "96/96",
-              objectFit: "cover",
-            }}
-            width="96"
-          /> */}
-          <div className="grid gap-1 ml-4 text-center md:text-left">
-            <h1 className="font-bold text-xl">{data.name}</h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {data.name}
-            </p>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="grid gap-4 p-6 md:gap-8 md:p-8">
-        <div className="grid gap-2">
-          <h2 className="font-semibold">Details</h2>
-          <div className="grid grid-cols-2 gap-2">
-            <div className="flex items-center gap-2">
-              <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Twitch ID</div>
-              <div className="ml-auto">{data.name}</div>
-            </div>
-            <div className="flex items-center gap-2">
-              <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Twitch Name</div>
-              <div className="ml-auto">{data.name}</div>
-            </div>
-            <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Channel Type</div>
-              <div className="ml-auto">{data.pk}</div>
-            </div>
-            <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Created At</div>
-              <div className="ml-auto">{data.sk}</div>
+    <div className="container">
+      <Card className="w-full max-w-3xl mx-auto">
+        <Metatags title={`Twitchy - ${data.name}'s Emote`} description={`Emote details for ${data.name}`} />
+        <CardHeader className="flex flex-col md:flex-row items-start md:items-center gap-4 py-6 px-6 md:gap-8 md:py-8 md:px-8">
+          <div className="order-2 md:order-1 flex items-center">
+            <Image
+              alt="Avatar"
+              className="rounded-full border-4 border-white"
+              height="96"
+              src={data.images.url_2x}
+              style={{
+                aspectRatio: "96/96",
+                objectFit: "cover",
+              }}
+              width="96"
+            />
+            <div className="grid gap-1 ml-4 text-center md:text-left">
+              <h1 className="font-bold text-xl">{data.name}</h1>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {data.name}
+              </p>
             </div>
           </div>
-        </div>
-        <div className="grid gap-2">
-          <h2 className="font-semibold">Stats</h2>
-          <div className="grid grid-cols-2 gap-2">
-            <div className="flex items-center gap-2">
-              <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Monthly Rank</div>
-              <div className="ml-auto">#{data.rank}</div>
-            </div>
-            <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Total Followers</div>
-              <div className="ml-auto">{data.followers_total}</div>
-            </div>
-            <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.avg_viewers}</div>
-            </div>
-            <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.created_at}</div>
-            </div>
-            <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.created_at}</div>
-            </div>
-            <div className="flex items-center gap-2">
-              <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-              <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.created_at}</div>
+        </CardHeader>
+        <CardContent className="grid gap-4 p-6 md:gap-8 md:p-8">
+          <div className="grid gap-2">
+            <h2 className="font-semibold">Details</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div className="flex items-center gap-2">
+                <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <div className="font-semibold">Emote ID</div>
+                <div className="ml-auto">{data.sk}</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <div className="font-semibold">Emote Name</div>
+                <div className="ml-auto">{data.name}</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <div className="font-semibold">Available Themes</div>
+                <div className="ml-auto">{data.pk}</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <div className="font-semibold">Created At</div>
+                <div className="ml-auto">{data.sk}</div>
+              </div>
             </div>
           </div>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
+    
   );
 }
 

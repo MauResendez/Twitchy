@@ -4,7 +4,7 @@ import Image from "next/image";
 const Home = () => {
   return (
     <div className="flex flex-1 flex-col min-h-screen">
-      <Metatags title="Twitchy" description="Discover the best streams, analyze statistics, and compare your favorite streamers" />
+      <Metatags title="Twitchy" description="Discover new streams to watch, view channel statistics, and find the top clips of the week" />
       <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
         <div className="container flex flex-col items-center text-center space-y-4">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
@@ -69,7 +69,7 @@ const Home = () => {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
 export default Home;
