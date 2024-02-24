@@ -24,6 +24,8 @@ const Channel = () => {
 
   if (error) return 'An error has occurred: ' + error.message
 
+  if (!data.channel) return "Channel doesn't exist"
+
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader className="flex flex-col md:flex-row items-start md:items-center gap-4 py-6 px-6 md:gap-8 md:py-8 md:px-8">
@@ -89,32 +91,32 @@ const Channel = () => {
             <div className="flex items-center gap-2">
               <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Monthly Rank</div>
-              <div className="ml-auto">#{data.statistics.rank}</div>
+              <div className="ml-auto">#{data.channel.rank}</div>
             </div>
             <div className="flex items-center gap-2">
               <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Total Followers</div>
-              <div className="ml-auto">{data.statistics.followers_total}</div>
+              <div className="ml-auto">{data.channel.followers_total}</div>
             </div>
             <div className="flex items-center gap-2">
               <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.statistics.avg_viewers}</div>
+              <div className="ml-auto">{data.channel.avg_viewers}</div>
             </div>
             <div className="flex items-center gap-2">
               <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.statistics.created_at}</div>
+              <div className="ml-auto">{data.channel.created_at}</div>
             </div>
             <div className="flex items-center gap-2">
               <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.statistics.created_at}</div>
+              <div className="ml-auto">{data.channel.created_at}</div>
             </div>
             <div className="flex items-center gap-2">
               <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.statistics.created_at}</div>
+              <div className="ml-auto">{data.channel.created_at}</div>
             </div>
           </div>
         </div>
