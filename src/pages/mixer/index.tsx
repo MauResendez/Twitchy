@@ -1,38 +1,31 @@
-import Link from "next/link"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from "@app/components/ui/button"
+import Metatags from "@app/components/metatags";
+import { Button } from "@app/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage,
-} from "@app/components/ui/form"
+  FormMessage
+} from "@app/components/ui/form";
+import { Input } from "@app/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@app/components/ui/select"
-import { toast } from "@app/components/ui/use-toast"
-import { Input } from "@app/components/ui/input";
-import { useRouter } from "next/router";
-import { MultiSelect } from "@app/components/ui/multi-select";
-import axios from "axios";
-import Metatags from "@app/components/metatags";
-import { useDispatch } from "react-redux";
+} from "@app/components/ui/select";
+import { Icons } from "@app/components/ui/spinner";
 import { saveStreams } from "@app/slices/streams";
-
-const GameSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-})
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const FormSchema = z.object({
   game: z.string({
@@ -49,25 +42,30 @@ const FormSchema = z.object({
 const Mixer = () => {
   const { push } = useRouter();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
+  const { isPending, error, data } = useQuery({
+    queryKey: ['games'],
+    queryFn: async () => {
+      const response = await axios.get('https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getGames');
+
+      console.log(response.data.games);
+
+      return response.data.games;
+    }
+  });
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       game: "",
       language: "",
-      viewers: 100
+      viewers: 10
     }
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    setLoading(true);
 
     const response = await axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getStreams?game=${data["game"]}&language=${data["language"]}&viewers=${data["viewers"]}`);
 
@@ -77,8 +75,12 @@ const Mixer = () => {
     push("/stream");
   }
 
+  if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
+
+  if (error) return 'An error has occurred: ' + error.message
+
   return (
-    <div className="flex flex-col p-4 flex-1 items-center justify-center">
+    <div className="flex flex-1 flex-col items-center justify-center">
       <Metatags title="Twitchy" description="Discover the best streams, analyze statistics, and compare your favorite streamers" />
       <div className="flex items-center justify-center p-4">
         <div className="space-y-2 text-center">
@@ -104,52 +106,11 @@ const Mixer = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="lol">League of Legends</SelectItem>
-                        <SelectItem value="33214">Fortnite</SelectItem>
-                        <SelectItem value="csgo">CS:GO</SelectItem>
-                        <SelectItem value="dota2">Dota 2</SelectItem>
-                        <SelectItem value="minecraft">Minecraft</SelectItem>
-                        <SelectItem value="overwatch">Overwatch</SelectItem>
-                        <SelectItem value="fifa">FIFA</SelectItem>
-                        <SelectItem value="pubg">PUBG</SelectItem>
-                        <SelectItem value="hearthstone">Hearthstone</SelectItem>
-                        <SelectItem value="rocketleague">Rocket League</SelectItem>
+                        {data.map((game: any) => (
+                          <SelectItem value={game.id}>{game.name}</SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
-                    {/* <MultiSelect
-                      selected={field.value}
-                      options={[
-                        {
-                          value: "next.js",
-                          label: "Next.js",
-                        },
-                        {
-                          value: "sveltekit",
-                          label: "SvelteKit",
-                        },
-                        {
-                          value: "nuxt.js",
-                          label: "Nuxt.js",
-                        },
-                        {
-                          value: "remix",
-                          label: "Remix",
-                        },
-                        {
-                          value: "astro",
-                          label: "Astro",
-                        },
-                        {
-                          value: "wordpress",
-                          label: "WordPress",
-                        },
-                        {
-                          value: "express.js",
-                          label: "Express.js",
-                        }
-                      ]}
-                      {...field}
-                    /> */}
                     <FormMessage />
                   </FormItem>
                 )}
@@ -199,8 +160,8 @@ const Mixer = () => {
                 )}
               />
             </div>
-            <Button className="w-full" type="submit">
-              Start Searching
+            <Button className="w-full" type="submit" disabled={loading}>
+              {loading ? "Loading..." : "Start Searching"}
             </Button>
           </form>
         </Form>

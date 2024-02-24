@@ -1,4 +1,5 @@
-import { Card, CardContent, CardFooter, CardHeader } from "@app/components/ui/card";
+import { Card, CardContent, CardHeader } from "@app/components/ui/card";
+import { Icons } from "@app/components/ui/spinner";
 import { Emote } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -27,12 +28,12 @@ const Emotes = () => {
       }),
   })
 
-  if (isPending) return 'Loading...'
+  if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
 
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <main className="flex-1">
+    <div className="flex flex-1 flex-col min-h-screen">
       <div className="container mx-auto grid gap-4 md:grid-cols-4 xl:grid-cols-6 p-4">
         {data.map((emote: Emote) => (
           <Link href={"/emotes/" + emote.sk} key={emote.sk}>
@@ -61,7 +62,7 @@ const Emotes = () => {
           </Link>
         ))}
       </div>
-    </main>
+    </div>
   );
 }
 

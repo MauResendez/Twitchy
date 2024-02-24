@@ -1,12 +1,26 @@
+import ChannelResults from "@app/components/channel-results";
 import Metatags from "@app/components/metatags";
-import { Card, CardContent, CardFooter, CardHeader } from "@app/components/ui/card";
+import { Icons } from "@app/components/ui/spinner";
 import { Channel } from "@app/types";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Image from "next/image";
-import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+ 
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@app/components/ui/form";
+import { Input } from "@app/components/ui/input";
+import { useRouter } from "next/router";
 
 const Channels = () => {
+  const { push } = useRouter();
   const { isPending, error, data } = useQuery({
     queryKey: ['channels'],
     queryFn: () =>
@@ -23,47 +37,51 @@ const Channels = () => {
   
         return response.data.channels;
       }),
+  });
+
+  const FormSchema = z.object({
+    username: z.string().min(2, {
+      message: "Username must be at least 2 characters.",
+    }),
   })
 
-  if (isPending) return 'Loading...'
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      username: "",
+    },
+  })
+ 
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    push(`/channels/${data.username}`);
+  }
+
+  if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
 
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <main className="flex-1">
+    <div className="flex flex-1 flex-col min-h-screen">
       <Metatags title="Twitchy - Channels" description="Find details and statistics about any Twitch channel" />
-      <div className="container mx-auto grid gap-4 md:grid-cols-2 xl:grid-cols-4 p-4">
-        {data.map((channel: Channel) => (
-          <Link href={"/channels/" + channel.user_login} key={channel.id}>
-            <Card key={channel.id}>
-              <CardContent className="p-0 aspect-video">
-                <Image
-                  alt="Stream"
-                  className="object-cover w-full h-full"
-                  height={225}
-                  src={channel.thumbnail_url}
-                  style={{
-                    aspectRatio: "400/225",
-                    objectFit: "cover",
-                  }}
-                  width={400}
-                />
-              </CardContent>
-              <CardHeader className="space-y-0 p-4">
-                <div className="flex items-center">
-                  <div className="grid text-sm">
-                    <h3 className="font-medium">{channel.user_name}</h3>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{channel.title}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Playing: {channel.game_name}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Viewers: {channel.viewer_count}</p>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-          </Link>
-        ))}
-      </div>
-    </main>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="p-4">
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Search</FormLabel>
+                <FormControl>
+                  <Input placeholder="Example: xQc, Jynxzi, KaiCenat, etc." {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
+      <ChannelResults data={data} />
+    </div>
   );
 }
 

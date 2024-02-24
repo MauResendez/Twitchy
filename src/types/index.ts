@@ -14,6 +14,12 @@ export type Channel = {
   user_login: string,
   user_name: string,
   viewer_count: number,
+  minutes_streamed: number,
+	avg_viewers: number,
+	max_viewers: number,
+	hours_watched: number,
+	followers: number,
+	followers_total: number
 }
 
 export type Badge = {
@@ -31,6 +37,8 @@ export type Emote = {
   name: string,
   scale: string[]
   themes: string[],
+  rank: string,
+  created_at: string,
 }
 
 export type Clip = {

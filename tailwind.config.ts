@@ -10,6 +10,9 @@ const config = {
 	],
   prefix: "",
   theme: {
+    colors: {
+      twitch: "#0000FE"
+    },
     container: {
       center: true,
       padding: "2rem",

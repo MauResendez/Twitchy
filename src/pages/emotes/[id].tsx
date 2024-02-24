@@ -1,10 +1,10 @@
 import { Button } from "@app/components/ui/button";
 import { Card, CardContent, CardHeader } from "@app/components/ui/card";
+import { Icons } from "@app/components/ui/spinner";
 import { Emote as e } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const Emote = () => {
   const router = useRouter();
@@ -20,7 +20,7 @@ const Emote = () => {
     enabled: router.isReady
   })
 
-  if (isPending) return 'Loading...'
+  if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
 
   if (error) return 'An error has occurred: ' + error.message
 
@@ -83,41 +83,41 @@ const Emote = () => {
             </div>
           </div>
         </div>
-        {/* <div className="grid gap-2">
+        <div className="grid gap-2">
           <h2 className="font-semibold">Stats</h2>
           <div className="grid grid-cols-2 gap-2">
             <div className="flex items-center gap-2">
               <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Monthly Rank</div>
-              <div className="ml-auto">#{data.statistics.rank}</div>
+              <div className="ml-auto">#{data.rank}</div>
             </div>
             <div className="flex items-center gap-2">
               <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Total Followers</div>
-              <div className="ml-auto">{data.statistics.followers_total}</div>
+              <div className="ml-auto">{data.followers_total}</div>
             </div>
             <div className="flex items-center gap-2">
               <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.statistics.avg_viewers}</div>
+              <div className="ml-auto">{data.avg_viewers}</div>
             </div>
             <div className="flex items-center gap-2">
               <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.statistics.created_at}</div>
+              <div className="ml-auto">{data.created_at}</div>
             </div>
             <div className="flex items-center gap-2">
               <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.statistics.created_at}</div>
+              <div className="ml-auto">{data.created_at}</div>
             </div>
             <div className="flex items-center gap-2">
               <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               <div className="font-semibold">Average Viewers</div>
-              <div className="ml-auto">{data.statistics.created_at}</div>
+              <div className="ml-auto">{data.created_at}</div>
             </div>
           </div>
-        </div> */}
+        </div>
       </CardContent>
     </Card>
   );
