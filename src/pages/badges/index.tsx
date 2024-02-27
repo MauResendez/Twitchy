@@ -38,12 +38,12 @@ const Badges = () => {
       <Metatags title="Twitchy - Badges" description="View all global badges from Twitch" />
       <div className="container mx-auto grid gap-4 md:grid-cols-4 xl:grid-cols-6 p-4">
         {data.map((badge: Badge) => (
-          <Link href={"/badges/" + badge.sk} key={badge.sk}>
+          <Link href={`/badge?id=${badge.sk}`} key={badge.sk}>
             <Card key={badge.sk}>
-              <CardContent className="p-4 aspect-video">
+              <CardContent className="p-2 aspect-video">
                 <Image
                   alt={badge.name}
-                  className="object-cover w-full h-full"
+                  className="object-cover w-full"
                   height={225}
                   src={badge.versions[0].image_url_4x}
                   style={{

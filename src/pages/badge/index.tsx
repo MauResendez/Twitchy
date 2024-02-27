@@ -1,53 +1,45 @@
 import Metatags from "@app/components/metatags";
-import { Button } from "@app/components/ui/button";
 import { Card, CardContent, CardHeader } from "@app/components/ui/card";
 import { Icons } from "@app/components/ui/spinner";
-import { formatDate } from "@app/utils";
+import { Badge as b } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Calendar, Clock3Icon, TrophyIcon, TvIcon, TwitchIcon, UserIcon, UserRoundPlusIcon, UserSquareIcon, UsersRoundIcon } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
-const Channel = () => {
-  const router = useRouter();
-  const { id } = router.query;
+const Badge = () => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
+
+  console.log(id);
 
   const { isPending, error, data } = useQuery({
     queryKey: [id],
     queryFn: async () => {
-      const response = await axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getChannel?user=${id}`);
+      const response = await axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getBadge?badge=${id}`);
 
-      const channel = response.data.channel;
-      return channel;
+      const badge: b = response.data.badge;
+      return badge;
     },
-    enabled: router.isReady
   })
 
   if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
 
   if (error) return 'An error has occurred: ' + error.message
 
-  if (!data) return "Channel doesn't exist"
+  if (!data || id == null) return "Badge doesn't exist"
 
   return (
     <div className="container">
-      <Metatags title={`Twitchy - ${data.name}'s Channel`} description={`Channel details for ${data.name}`} />
+      <Metatags title={`Twitchy - ${data.name}'s Badge`} description={`Badge details for ${data.name}`} />
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader className="flex flex-col md:flex-row items-start md:items-center gap-4 py-6 px-6 md:gap-8 md:py-8 md:px-8">
-          <div className="order-1 md:order-2 flex gap-2 md:ml-auto">
-            <a href={`https://www.twitch.tv/${data.login}`} target="_blank">
-              <Button className="rounded-full w-8 h-8" size="icon" variant="outline">
-                <TwitchIcon className="h-4 w-4" />
-              </Button>
-            </a>
-          </div>
           <div className="order-2 md:order-1 flex items-center">
             <Image
               alt="Avatar"
               className="rounded-full border-4 border-white"
               height="96"
-              src={data.profile_image_url}
+              src={data.versions[0].image_url_4x}
               style={{
                 aspectRatio: "96/96",
                 objectFit: "cover",
@@ -55,9 +47,9 @@ const Channel = () => {
               width="96"
             />
             <div className="grid gap-1 ml-4 text-center md:text-left">
-              <h1 className="font-bold text-xl">{data.display_name}</h1>
+              <h1 className="font-bold text-xl">{data.name}</h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                {data.description}
+                {data.name}
               </p>
             </div>
           </div>
@@ -65,61 +57,16 @@ const Channel = () => {
         <CardContent className="grid gap-4 p-6 md:gap-8 md:p-8">
           <div className="grid gap-2">
             <h2 className="font-semibold">Details</h2>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <div className="flex items-center gap-2">
-                <UserIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Twitch ID</div>
-                <div className="ml-auto">{data.id}</div>
+                <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <div className="font-semibold">Emote ID</div>
+                <div className="ml-auto">{data.sk}</div>
               </div>
               <div className="flex items-center gap-2">
-                <UserIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Twitch Name</div>
-                <div className="ml-auto">{data.login}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <TvIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Channel Type</div>
-                <div className="ml-auto capitalize">{data.broadcaster_type}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Created At</div>
-                <div className="ml-auto">{formatDate(data.created_at)}</div>
-              </div>
-            </div>
-          </div>
-          <div className="grid gap-2">
-            <h2 className="font-semibold">Stats</h2>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="flex items-center gap-2">
-                <TrophyIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Monthly Rank</div>
-                <div className="ml-auto">{data.rank ? `#${data.rank}` : "N/A"}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock3Icon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Monthly Hours Streamed</div>
-                <div className="ml-auto">{data.minutes_streamed ? (data.minutes_streamed / 60).toFixed(2) : "N/A"}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <UserSquareIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Monthly Average Viewers</div>
-                <div className="ml-auto">{data.avg_viewers ?? "N/A"}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <UsersRoundIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Monthly Max Viewers</div>
-                <div className="ml-auto">{data.max_viewers ?? "N/A"}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <UserRoundPlusIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Total Followers Gained</div>
-                <div className="ml-auto">{data.followers_total ?? "N/A"}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <UserRoundPlusIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Monthly Followers Gained</div>
-                <div className="ml-auto">{data.followers ?? "N/A"}</div>
+                <UsersIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <div className="font-semibold">Emote Name</div>
+                <div className="ml-auto">{data.name}</div>
               </div>
             </div>
           </div>
@@ -129,7 +76,7 @@ const Channel = () => {
   );
 }
 
-export default Channel;
+export default Badge;
 
 function BellIcon(props: any) {
   return (

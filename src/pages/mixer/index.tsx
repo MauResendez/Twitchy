@@ -67,6 +67,8 @@ const Mixer = () => {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
 
+    sessionStorage.clear(); 
+
     const response = await axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getStreams?game=${data["game"]}&language=${data["language"]}&viewers=${data["viewers"]}`);
 
     const streams = response.data.streams;
@@ -107,7 +109,7 @@ const Mixer = () => {
                       </FormControl>
                       <SelectContent>
                         {data.map((game: any) => (
-                          <SelectItem value={game.id}>{game.name}</SelectItem>
+                          <SelectItem key={game.id} value={game.id}>{game.name}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>

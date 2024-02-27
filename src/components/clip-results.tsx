@@ -36,7 +36,7 @@ const ClipResults = (props: any) => {
     <>
       <div className="container mx-auto grid gap-4 md:grid-cols-2 xl:grid-cols-4 p-4">
         {currentItems.map((clip: Clip) => (
-          <Link href={"/clips/" + clip.sk} key={clip.sk}>
+          <Link href={`/clip?id=${clip.sk}`} key={clip.sk}>
             <Card key={clip.sk}>
               <CardContent className="p-0 aspect-video">
                 <Image

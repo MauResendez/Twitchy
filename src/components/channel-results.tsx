@@ -35,7 +35,7 @@ const ChannelResults = (props: any) => {
     <>
       <div className="container mx-auto grid gap-4 md:grid-cols-2 xl:grid-cols-4 p-4">
         {currentItems.map((channel: Channel) => (
-          <Link href={"/channels/" + channel.user_login} key={channel.id}>
+          <Link href={`/channel?id=${channel.user_login}`} key={channel.id}>
             <Card key={channel.id}>
               <CardContent className="p-0 aspect-video">
                 <Image

@@ -53,7 +53,9 @@ const Channels = () => {
     },
   })
  
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  function onSubmit(data: z.infer<typeof FormSchema>, e: any) {
+    e.preventDefault();
+    
     push(`/channels/${data.channel}`);
   }
 

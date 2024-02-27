@@ -5,11 +5,11 @@ import { Emote as e } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 const Emote = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
 
   const { isPending, error, data } = useQuery({
     queryKey: [id],
@@ -19,12 +19,13 @@ const Emote = () => {
       const emote: e = response.data.emote;
       return emote;
     },
-    enabled: router.isReady
   })
 
   if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
 
   if (error) return 'An error has occurred: ' + error.message
+
+  if (!data || id == null) return "Emote doesn't exist"
 
   return (
     <div className="container">
