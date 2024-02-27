@@ -31,7 +31,7 @@ const Stream = () => {
           <PlayIcon className="mr-2 h-4 w-4" />
           Find a new stream
         </Button>
-        <a href={`channels/${data.user_login}`} target="_blank">
+        <a href={`channel?id=${data.user_login}`} target="_blank">
           <Button size="sm" variant="default">
             <UserIcon className="mr-2 h-4 w-4" />
             View Channel

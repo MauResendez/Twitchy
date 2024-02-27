@@ -56,7 +56,7 @@ const Channels = () => {
   function onSubmit(data: z.infer<typeof FormSchema>, e: any) {
     e.preventDefault();
     
-    push(`/channels/${data.channel}`);
+    push(`/channel?id=${data.channel}`);
   }
 
   if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
