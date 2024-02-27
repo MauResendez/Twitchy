@@ -1,6 +1,6 @@
-import Auth from "@app/components/auth";
 import Drawer from "@app/components/drawer";
 import Link from "next/link";
+import ThemeToggle from "./toggle";
 
 const Mobile = () => {
   return (
@@ -14,7 +14,7 @@ const Mobile = () => {
         </Link>
         <div className="flex items-center justify-between md:justify-end">
           <nav className="flex items-center">
-            <Auth />
+            <ThemeToggle />
           </nav>
         </div>
       </div>
