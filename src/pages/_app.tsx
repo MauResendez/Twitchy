@@ -27,7 +27,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
             enableSystem
             disableTransitionOnChange
           >
-            <main className={`flex min-h-screen flex-col items-center justify-between ${inter.className} bg-white dark:bg-gray`}>
+            <main className={`flex min-h-screen flex-col items-center justify-between ${inter.className}`}>
               <Header />
               <Mobile />
               <Component {...pageProps} />

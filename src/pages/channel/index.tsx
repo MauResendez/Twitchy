@@ -6,7 +6,6 @@ import { formatDate } from "@app/utils";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Calendar, Clock3Icon, TrophyIcon, TvIcon, TwitchIcon, UserIcon, UserRoundPlusIcon, UserSquareIcon, UsersRoundIcon } from "lucide-react";
-import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 const Channel = () => {
@@ -43,7 +42,7 @@ const Channel = () => {
             </a>
           </div>
           <div className="order-2 md:order-1 flex items-center">
-            <Image
+            <img
               alt="Avatar"
               className="rounded-full border-4 border-white"
               height="96"

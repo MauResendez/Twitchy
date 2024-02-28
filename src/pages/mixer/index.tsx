@@ -52,7 +52,8 @@ const Mixer = () => {
       console.log(response.data.games);
 
       return response.data.games;
-    }
+    },
+    refetchOnWindowFocus: false
   });
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -86,7 +87,7 @@ const Mixer = () => {
 
     <div className="container mx-auto flex flex-1 flex-col items-center justify-center">
       <Metatags title="Twitchy - Mixer" description="Find new streams based on you're looking for" />
-      <div className="flex items-center justify-center p-4">
+      <div className="flex items-center justify-center py-4">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl">Stream Mixer</h1>
           <p className="max-w-[600px] text-gray-500 md:text-base/relaxed dark:text-gray-400">

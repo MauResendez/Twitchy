@@ -4,7 +4,6 @@ import { Icons } from "@app/components/ui/spinner";
 import { Emote as e } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 const Emote = () => {
@@ -33,7 +32,7 @@ const Emote = () => {
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader className="flex flex-col md:flex-row items-start md:items-center gap-4 py-6 px-6 md:gap-8 md:py-8 md:px-8">
           <div className="order-2 md:order-1 flex items-center">
-            <Image
+            <img
               alt="Avatar"
               className="rounded-full border-4 border-white"
               height="96"

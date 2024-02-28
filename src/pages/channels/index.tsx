@@ -67,7 +67,7 @@ const Channels = () => {
     <div className="container mx-auto flex flex-1 flex-col min-h-screen">
       <Metatags title="Twitchy - Channels" description="Find details and statistics about any Twitch channel" />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="py-4 md:p-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="py-4">
           <FormField
             control={form.control}
             name="channel"

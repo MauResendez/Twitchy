@@ -1,5 +1,4 @@
 import Metatags from "@app/components/metatags";
-import Image from "next/image";
 
 const Home = () => {
   return (
@@ -17,7 +16,7 @@ const Home = () => {
       </section>
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container grid items-center gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_550px]">
-          <Image
+          <img
             alt="Find Streams"
             className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center w-full lg:order-last"
             height="310"
@@ -35,7 +34,7 @@ const Home = () => {
       </section>
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container grid items-center gap-6 lg:grid-cols-[500px_1fr] lg:gap-12 xl:grid-cols-[550px_1fr]">
-          <Image
+          <img
             alt="Statistics"
             className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center w-full"
             height="310"
@@ -52,7 +51,7 @@ const Home = () => {
       </section>
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container grid items-center gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_550px]">
-          <Image
+          <img
             alt="Compare Streamers"
             className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center w-full lg:order-last"
             height="310"

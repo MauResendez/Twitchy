@@ -1,6 +1,5 @@
 import { Clip } from '@app/types';
 import { formatDate } from '@app/utils';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Card, CardContent, CardHeader } from './ui/card';
@@ -39,7 +38,7 @@ const ClipResults = (props: any) => {
           <Link href={`/clip?id=${clip.sk}`} key={clip.sk}>
             <Card key={clip.sk}>
               <CardContent className="p-0 aspect-video">
-                <Image
+                <img
                   alt="Stream"
                   className="object-cover w-full h-full"
                   height={225}
