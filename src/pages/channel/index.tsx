@@ -31,10 +31,10 @@ const Channel = () => {
   if (!data || id == null) return "Channel doesn't exist"
 
   return (
-    <div className="container">
+    <div className="container mx-auto">
       <Metatags title={`Twitchy - ${data.name}'s Channel`} description={`Channel details for ${data.name}`} />
       <Card className="w-full max-w-3xl mx-auto">
-        <CardHeader className="flex flex-col md:flex-row items-start md:items-center gap-4 py-6 px-6 md:gap-8 md:py-8 md:px-8">
+        <CardHeader className="flex flex-col md:flex-row items-start md:items-center gap-4 p-6 md:gap-8 md:p-8">
           <div className="order-1 md:order-2 flex gap-2 md:ml-auto">
             <a href={`https://www.twitch.tv/${data.login}`} target="_blank">
               <Button className="rounded-full w-8 h-8" size="icon" variant="outline">
@@ -54,7 +54,7 @@ const Channel = () => {
               }}
               width="96"
             />
-            <div className="grid gap-1 ml-4 text-center md:text-left">
+            <div className="grid gap-1 ml-4 text-left">
               <h1 className="font-bold text-xl">{data.display_name}</h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 {data.description}
@@ -65,7 +65,7 @@ const Channel = () => {
         <CardContent className="grid gap-4 p-6 md:gap-8 md:p-8">
           <div className="grid gap-2">
             <h2 className="font-semibold">Details</h2>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <div className="flex items-center gap-2">
                 <UserIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
                 <div className="font-semibold">Twitch ID</div>
@@ -90,7 +90,7 @@ const Channel = () => {
           </div>
           <div className="grid gap-2">
             <h2 className="font-semibold">Stats</h2>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <div className="flex items-center gap-2">
                 <TrophyIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
                 <div className="font-semibold">Monthly Rank</div>

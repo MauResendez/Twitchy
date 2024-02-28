@@ -34,7 +34,7 @@ const ClipResults = (props: any) => {
 
   return (
     <>
-      <div className="container mx-auto grid gap-4 md:grid-cols-2 xl:grid-cols-4 p-4">
+      <div className="grid gap-4 grid-cols-2 xl:grid-cols-4 py-4">
         {currentItems.map((clip: Clip) => (
           <Link href={`/clip?id=${clip.sk}`} key={clip.sk}>
             <Card key={clip.sk}>

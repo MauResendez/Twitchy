@@ -46,7 +46,7 @@ const Badge = () => {
               }}
               width="96"
             />
-            <div className="grid gap-1 ml-4 text-center md:text-left">
+            <div className="grid gap-1 ml-4 text-left">
               <h1 className="font-bold text-xl">{data.name}</h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 {data.name}

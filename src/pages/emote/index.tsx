@@ -29,8 +29,8 @@ const Emote = () => {
 
   return (
     <div className="container">
+      <Metatags title={`Twitchy - ${data.name}'s Emote`} description={`Emote details for ${data.name}`} />
       <Card className="w-full max-w-3xl mx-auto">
-        <Metatags title={`Twitchy - ${data.name}'s Emote`} description={`Emote details for ${data.name}`} />
         <CardHeader className="flex flex-col md:flex-row items-start md:items-center gap-4 py-6 px-6 md:gap-8 md:py-8 md:px-8">
           <div className="order-2 md:order-1 flex items-center">
             <Image
@@ -44,7 +44,7 @@ const Emote = () => {
               }}
               width="96"
             />
-            <div className="grid gap-1 ml-4 text-center md:text-left">
+            <div className="grid gap-1 ml-4 text-left">
               <h1 className="font-bold text-xl">{data.name}</h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 {data.name}

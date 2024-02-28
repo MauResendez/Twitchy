@@ -25,7 +25,7 @@ const Stream = () => {
   return (
     <div className="flex flex-1 flex-col items-center justify-center space-y-4">
       <Metatags title="Twitchy - Stream" description="View a random stream based on the parameters that you've set" />
-      <TwitchEmbed channel={data.user_login} autoplay muted={false} />
+      <TwitchEmbed channel={data.user_login} autoplay muted={false} className="w-full md:w-1/2 md:h-full mx-auto" />
       <div className="flex items-center space-x-4">
         <Button size="sm" variant="default" onClick={() => refetch()}>
           <PlayIcon className="mr-2 h-4 w-4" />
