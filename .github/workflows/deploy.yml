@@ -17,7 +17,7 @@ jobs:
     - name: Use Node.js 18
       uses: actions/setup-node@v3
       with:
-        node-version: '18.x'
+        node-version: 18
         cache: 'npm'
     - name: Install dependencies
       run: npm ci
@@ -30,5 +30,6 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
         aws-region: us-east-1
     - name: Copy files to S3 with the AWS CLI
-      run: |
-        aws s3 sync ./out s3://twitchy.app/
+      run: aws s3 sync ./out s3://twitchy.app/
+    - name: Invalidate CloudFront Cache
+      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
