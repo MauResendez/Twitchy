@@ -53,8 +53,10 @@ const Channels = () => {
     },
   })
  
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    push(`/channels/${data.channel}`);
+  function onSubmit(data: z.infer<typeof FormSchema>, e: any) {
+    e.preventDefault();
+    
+    push(`/channel?id=${data.channel}`);
   }
 
   if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
@@ -62,10 +64,10 @@ const Channels = () => {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <div className="flex flex-1 flex-col min-h-screen">
+    <div className="container mx-auto flex flex-1 flex-col min-h-screen">
       <Metatags title="Twitchy - Channels" description="Find details and statistics about any Twitch channel" />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="p-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="py-4">
           <FormField
             control={form.control}
             name="channel"

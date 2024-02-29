@@ -34,7 +34,7 @@ const Clips = () => {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <div className="flex flex-1 flex-col min-h-screen">
+    <div className="container mx-auto flex flex-1 flex-col min-h-screen">
       <Metatags title="Twitchy - Clips" description="Find the top Twitch clips of the week" />
       <ClipResults data={data} />
     </div>

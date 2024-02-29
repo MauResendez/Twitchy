@@ -1,49 +1,49 @@
 import Metatags from "@app/components/metatags";
 import { Card, CardContent, CardHeader } from "@app/components/ui/card";
 import { Icons } from "@app/components/ui/spinner";
-import { Badge as b } from "@app/types";
+import { Emote as e } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Image from "next/image";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
-const Badge = () => {
-  const router = useRouter();
-  const { id } = router.query;
+const Emote = () => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
 
   const { isPending, error, data } = useQuery({
     queryKey: [id],
     queryFn: async () => {
-      const response = await axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getBadge?badge=${id}`);
+      const response = await axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getEmote?emote=${id}`);
 
-      const badge: b = response.data.badge;
-      return badge;
+      const emote: e = response.data.emote;
+      return emote;
     },
-    enabled: router.isReady
   })
 
   if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
 
   if (error) return 'An error has occurred: ' + error.message
 
+  if (!data || id == null) return "Emote doesn't exist"
+
   return (
     <div className="container">
-      <Metatags title={`Twitchy - ${data.name}'s Badge`} description={`Badge details for ${data.name}`} />
+      <Metatags title={`Twitchy - ${data.name}'s Emote`} description={`Emote details for ${data.name}`} />
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader className="flex flex-col md:flex-row items-start md:items-center gap-4 py-6 px-6 md:gap-8 md:py-8 md:px-8">
           <div className="order-2 md:order-1 flex items-center">
-            <Image
+            <img
               alt="Avatar"
               className="rounded-full border-4 border-white"
               height="96"
-              src={data.versions[0].image_url_4x}
+              src={data.images.url_2x}
               style={{
                 aspectRatio: "96/96",
                 objectFit: "cover",
               }}
               width="96"
             />
-            <div className="grid gap-1 ml-4 text-center md:text-left">
+            <div className="grid gap-1 ml-4 text-left">
               <h1 className="font-bold text-xl">{data.name}</h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 {data.name}
@@ -65,15 +65,26 @@ const Badge = () => {
                 <div className="font-semibold">Emote Name</div>
                 <div className="ml-auto">{data.name}</div>
               </div>
+              <div className="flex items-center gap-2">
+                <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <div className="font-semibold">Available Themes</div>
+                <div className="ml-auto">{data.pk}</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                <div className="font-semibold">Created At</div>
+                <div className="ml-auto">{data.sk}</div>
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
     </div>
+    
   );
 }
 
-export default Badge;
+export default Emote;
 
 function BellIcon(props: any) {
   return (

@@ -8,7 +8,6 @@ import {
   QueryClient,
   QueryClientProvider
 } from '@tanstack/react-query';
-import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import { Provider } from "react-redux";
@@ -28,14 +27,12 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
             enableSystem
             disableTransitionOnChange
           >
-            <SessionProvider session={session}>
-              <main className={`flex min-h-screen flex-col items-center justify-between ${inter.className} bg-white dark:bg-gray`}>
-                <Header />
-                <Mobile />
-                <Component {...pageProps} />
-                <Footer />
-              </main>
-            </SessionProvider>
+            <main className={`flex min-h-screen flex-col items-center justify-between ${inter.className}`}>
+              <Header />
+              <Mobile />
+              <Component {...pageProps} />
+              <Footer />
+            </main>
           </ThemeProvider>
         </PersistGate>
       </Provider>

@@ -4,7 +4,6 @@ import { Icons } from "@app/components/ui/spinner";
 import { Emote } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Image from "next/image";
 import Link from "next/link";
 
 const Emotes = () => {
@@ -34,16 +33,16 @@ const Emotes = () => {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <div className="flex flex-1 flex-col min-h-screen">
+    <div className="container mx-auto flex flex-1 flex-col min-h-screen">
       <Metatags title="Twitchy - Emotes" description="View all global emotes from Twitch" />
-      <div className="container mx-auto grid gap-4 md:grid-cols-4 xl:grid-cols-6 p-4">
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-4 xl:grid-cols-6 py-4">
         {data.map((emote: Emote) => (
-          <Link href={"/emotes/" + emote.sk} key={emote.sk}>
+          <Link href={`/emote?id=${emote.sk}`} key={emote.sk}>
             <Card key={emote.sk}>
-              <CardContent className="p-12 aspect-video">
-                <Image
+              <CardContent className="px-16 py-10 aspect-video">
+                <img
                   alt={emote.name}
-                  className="object-cover w-full h-full"
+                  className="object-cover w-full"
                   height={225}
                   src={emote.images.url_4x}
                   style={{

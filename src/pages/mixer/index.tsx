@@ -52,7 +52,8 @@ const Mixer = () => {
       console.log(response.data.games);
 
       return response.data.games;
-    }
+    },
+    refetchOnWindowFocus: false
   });
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -67,6 +68,8 @@ const Mixer = () => {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
 
+    sessionStorage.clear(); 
+
     const response = await axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getStreams?game=${data["game"]}&language=${data["language"]}&viewers=${data["viewers"]}`);
 
     const streams = response.data.streams;
@@ -80,12 +83,14 @@ const Mixer = () => {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center">
+    // <div className="container mx-auto flex flex-1 flex-col min-h-screen">
+
+    <div className="container mx-auto flex flex-1 flex-col items-center justify-center">
       <Metatags title="Twitchy - Mixer" description="Find new streams based on you're looking for" />
-      <div className="flex items-center justify-center p-4">
+      <div className="flex items-center justify-center py-4">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl">Stream Mixer</h1>
-          <p className="max-w-[600px] text-gray-500 md:text-base/relaxed lg:text-sm/relaxed xl:text-base/relaxed dark:text-gray-400">
+          <p className="max-w-[600px] text-gray-500 md:text-base/relaxed dark:text-gray-400">
             Find new streamers to watch based on your language, game, and viewers!
           </p>
         </div>
@@ -107,7 +112,7 @@ const Mixer = () => {
                       </FormControl>
                       <SelectContent>
                         {data.map((game: any) => (
-                          <SelectItem value={game.id}>{game.name}</SelectItem>
+                          <SelectItem key={game.id} value={game.id}>{game.name}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>

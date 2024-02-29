@@ -1,12 +1,12 @@
-import { useTheme } from "next-themes"
+import { useTheme } from "next-themes";
 
-import { Button } from "@app/components/ui/button"
+import { Button } from "@app/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@app/components/ui/dropdown-menu"
+} from "@app/components/ui/dropdown-menu";
 import { MoonIcon, SunIcon } from "lucide-react";
 
 const ThemeToggle = () => {

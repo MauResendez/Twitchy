@@ -4,7 +4,6 @@ import { Icons } from "@app/components/ui/spinner";
 import { Badge } from "@app/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Image from "next/image";
 import Link from "next/link";
 
 const Badges = () => {
@@ -34,16 +33,16 @@ const Badges = () => {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <div className="flex flex-1 flex-col min-h-screen">
+    <div className="container mx-auto flex flex-1 flex-col min-h-screen">
       <Metatags title="Twitchy - Badges" description="View all global badges from Twitch" />
-      <div className="container mx-auto grid gap-4 md:grid-cols-4 xl:grid-cols-6 p-4">
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-4 xl:grid-cols-6 py-4">
         {data.map((badge: Badge) => (
-          <Link href={"/badges/" + badge.sk} key={badge.sk}>
+          <Link href={`/badge?id=${badge.sk}`} key={badge.sk}>
             <Card key={badge.sk}>
-              <CardContent className="p-4 aspect-video">
-                <Image
+              <CardContent className="p-2 aspect-video">
+                <img
                   alt={badge.name}
-                  className="object-cover w-full h-full"
+                  className="object-cover w-full"
                   height={225}
                   src={badge.versions[0].image_url_4x}
                   style={{
