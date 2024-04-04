@@ -26,14 +26,13 @@ const Stream = () => {
     <div className="flex flex-1 flex-col items-center justify-center space-y-4">
       <Metatags title="Twitchy - Stream" description="View a random stream based on the parameters that you've set" />
 
-      <div className="flex md:hidden w-full">
+      <div className="flex md:hidden">
         <TwitchEmbed id="mobile" channel={data.user_login} autoplay muted={true} width={"100%"} className="h-full" />
       </div>
 
       <div className="hidden md:flex">
-        <TwitchEmbed id='web' channel={data.user_login} autoplay muted={true} className="w-1/2 h-full mx-auto" />
+        <TwitchEmbed id="web" channel={data.user_login} autoplay muted={true} className="w-1/2 h-full mx-auto" />
       </div>
-
 
       <div className="flex flex-col gap-4 w-full sm:w-auto sm:flex-row sm:items-center">        
         <Button className='w-full sm:w-auto' size="sm" variant="default" onClick={() => refetch()}>
