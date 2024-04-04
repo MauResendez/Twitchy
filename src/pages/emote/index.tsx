@@ -65,16 +65,6 @@ const Emote = () => {
                 <div className="font-semibold">Emote Name</div>
                 <div className="ml-auto">{data.name}</div>
               </div>
-              <div className="flex items-center gap-2">
-                <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Available Themes</div>
-                <div className="ml-auto">{data.pk}</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <EyeIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                <div className="font-semibold">Created At</div>
-                <div className="ml-auto">{data.sk}</div>
-              </div>
             </div>
           </div>
         </CardContent>

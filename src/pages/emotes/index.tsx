@@ -9,24 +9,30 @@ import Link from "next/link";
 const Emotes = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ['emotes'],
-    queryFn: () =>
-      axios.get('https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getEmotes').then((response) => {
-        response.data.emotes.sort(function(a: Emote, b: Emote) {
-          var nameA = a.name.toUpperCase(); // Ignore case
-          var nameB = b.name.toUpperCase(); // Ignore case
-          if (nameA < nameB) {
-              return -1;
-          }
-          if (nameA > nameB) {
-              return 1;
-          }
-          // names must be equal
-          return 0;
-        });
-  
-        return response.data.emotes;
-      }),
-  })
+    queryFn: async () => {
+      const response = await axios.get('https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getEmotes');
+
+      const emotes: Emote[] = response.data.emotes;
+      
+      emotes.sort(function(a: Emote, b: Emote) {
+        let nameA = a.name.toUpperCase(); // Ignore case
+        let nameB = b.name.toUpperCase(); // Ignore case
+
+        if (nameA < nameB) {
+          return -1;
+        }
+        
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
+
+      return emotes;
+    }
+  });
 
   if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />
 

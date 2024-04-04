@@ -9,23 +9,29 @@ import Link from "next/link";
 const Badges = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ['badges'],
-    queryFn: () =>
-      axios.get('https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getBadges').then((response) => {
-        response.data.badges.sort(function(a: Badge, b: Badge) {
-          var nameA = a.name.toUpperCase(); // Ignore case
-          var nameB = b.name.toUpperCase(); // Ignore case
-          if (nameA < nameB) {
-              return -1;
-          }
-          if (nameA > nameB) {
-              return 1;
-          }
-          // names must be equal
-          return 0;
-        });
-  
-        return response.data.badges;
-      }),
+    queryFn: async () => {
+      const response = await axios.get('https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getBadges');
+
+      const badges: Badge[] = response.data.badges;
+      
+      badges.sort(function(a: Badge, b: Badge) {
+        let nameA = a.name.toUpperCase(); // Ignore case
+        let nameB = b.name.toUpperCase(); // Ignore case
+
+        if (nameA < nameB) {
+          return -1;
+        }
+        
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
+
+      return badges;
+    }
   });
 
   if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />

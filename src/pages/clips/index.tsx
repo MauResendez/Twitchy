@@ -8,25 +8,29 @@ import axios from "axios";
 const Clips = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ['clips'],
-    queryFn: () =>
-      axios.get('https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getClips').then((response) => {
-        response.data.clips.sort(function(a: Clip, b: Clip) {
-          var nameA = a.view_count // Ignore case
-          var nameB = b.view_count // Ignore case
+    queryFn: async () => {
+      const response = await axios.get('https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getClips');
 
-          if (nameA > nameB) {
-              return -1;
-          }
+      const clips: Clip[] = response.data.clips;
+      
+      clips.sort(function(a: Clip, b: Clip) {
+        let nameA = a.view_count // Ignore case
+        let nameB = b.view_count // Ignore case
 
-          if (nameA < nameB) {
-              return 1;
-          }
-          // names must be equal
-          return 0;
-        });
-  
-        return response.data.clips;
-      }),
+        if (nameA > nameB) {
+          return -1;
+        }
+
+        if (nameA < nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
+
+      return clips;
+    }
   })
 
   if (isPending) return <Icons.spinner className="h-20 w-20 animate-spin" />

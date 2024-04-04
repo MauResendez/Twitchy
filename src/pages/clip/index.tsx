@@ -11,7 +11,14 @@ const Clip = () => {
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
       <Metatags title={`Twitchy - ${id}`} description={`View clip ${id} from Twitch`} />
-      <TwitchClip clip={id as string} autoplay />
+
+      <div className="flex md:hidden">
+        <TwitchClip id="mobile" clip={id as string} autoplay muted={true} width={"100%"} />
+      </div>
+
+      <div className="hidden md:flex">
+        <TwitchClip id="web" clip={id as string} autoplay muted={true} />
+      </div>
     </div>
   );
 }
