@@ -46,15 +46,6 @@ const Header = () => {
           <Link 
             className={cn(
               "transition-colors hover:text-foreground/80",
-              pathname === "/statistics" ? "text-foreground" : "text-foreground/60"
-            )}
-            href="/statistics"
-          >
-            Statistics
-          </Link>
-          <Link 
-            className={cn(
-              "transition-colors hover:text-foreground/80",
               pathname === "/badges" ? "text-foreground" : "text-foreground/60"
             )}
             href="/badges"
