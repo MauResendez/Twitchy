@@ -30,10 +30,12 @@ const ChannelResults = (props: any) => {
   // Logic to change page
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  const restricted = ['509658', '509659', '116747788'];
+
   return (
     <>
       <div className="grid gap-4 grid-cols-2 xl:grid-cols-4 py-4">
-        {currentItems.map((channel: Channel) => (
+        {currentItems.filter((channel: Channel) => !restricted.includes(channel.game_id)).map((channel: Channel) => (
           <Link href={`/channel?id=${channel.user_login}`} key={channel.id}>
             <Card key={channel.id}>
               <CardContent className="p-0 aspect-video">
