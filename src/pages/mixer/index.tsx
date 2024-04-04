@@ -49,8 +49,6 @@ const Mixer = () => {
     queryFn: async () => {
       const response = await axios.get('https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getGames');
 
-      console.log(response.data.games);
-
       return response.data.games;
     },
     refetchOnWindowFocus: false
