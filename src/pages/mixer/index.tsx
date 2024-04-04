@@ -20,12 +20,10 @@ import {
   SelectValue,
 } from "@app/components/ui/select";
 import { Icons } from "@app/components/ui/spinner";
-import { saveStreams } from "@app/slices/streams";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 
 const FormSchema = z.object({
   game: z.string({
@@ -41,7 +39,6 @@ const FormSchema = z.object({
 
 const Mixer = () => {
   const { push } = useRouter();
-  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   const { isPending, error, data } = useQuery({
@@ -71,7 +68,6 @@ const Mixer = () => {
     const response = await axios.get(`https://okh8af2rdg.execute-api.us-east-1.amazonaws.com/api/getStreams?game=${data["game"]}&language=${data["language"]}&viewers=${data["viewers"]}`);
 
     const streams = response.data.streams;
-    dispatch(saveStreams(streams));
     sessionStorage.setItem("streams", JSON.stringify(streams));
     push("/stream");
   }
@@ -81,8 +77,6 @@ const Mixer = () => {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    // <div className="container mx-auto flex flex-1 flex-col min-h-screen">
-
     <div className="container mx-auto flex flex-1 flex-col items-center justify-center">
       <Metatags title="Twitchy - Mixer" description="Find new streams based on you're looking for" />
       <div className="flex items-center justify-center py-4">
