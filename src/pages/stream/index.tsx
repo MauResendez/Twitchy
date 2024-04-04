@@ -25,20 +25,29 @@ const Stream = () => {
   return (
     <div className="flex flex-1 flex-col items-center justify-center space-y-4">
       <Metatags title="Twitchy - Stream" description="View a random stream based on the parameters that you've set" />
-      <TwitchEmbed channel={data.user_login} autoplay muted={false} className="w-full md:w-1/2 md:h-full mx-auto" />
-      <div className="flex items-center space-x-4">
-        <Button size="sm" variant="default" onClick={() => refetch()}>
+
+      <div className="flex md:hidden w-full">
+        <TwitchEmbed id="mobile" channel={data.user_login} autoplay muted={true} width={"100%"} className="h-full" />
+      </div>
+
+      <div className="hidden md:flex">
+        <TwitchEmbed id='web' channel={data.user_login} autoplay muted={true} className="w-1/2 h-full mx-auto" />
+      </div>
+
+
+      <div className="flex flex-col gap-4 w-full sm:w-auto sm:flex-row sm:items-center">        
+        <Button className='w-full sm:w-auto' size="sm" variant="default" onClick={() => refetch()}>
           <PlayIcon className="mr-2 h-4 w-4" />
           Find a new stream
         </Button>
         <a href={`channel?id=${data.user_login}`} target="_blank">
-          <Button size="sm" variant="default">
+          <Button className='w-full sm:w-auto' size="sm" variant="default">
             <UserIcon className="mr-2 h-4 w-4" />
             View Channel
           </Button>
         </a>
         <a href={`https://www.twitch.tv/${data.user_login}`} target="_blank">
-          <Button size="sm" variant="default">
+          <Button className='w-full sm:w-auto' size="sm" variant="default">
             <ExternalLinkIcon className="mr-2 h-4 w-4" />
             Open on Twitch
           </Button>
